@@ -15,7 +15,7 @@ app.get("/",(req,res)=> res.status(200).send({
 }),
 );
 
-const port= parseInt(process.env.PORT,10) || 8000;
+const port= parseInt(process.env.PORT,10);
 app.set("port",port);
 
 const server = http.createServer(app);
