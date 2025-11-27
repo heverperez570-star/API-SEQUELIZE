@@ -11,10 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // definino las relaciones con las otras tablas
-      Usuario.belongsToMany(models.Rol,{
-        through: models.UsuarioRol,
+      Usuario.belongsToMany(models.Rol,{ //Una relacion de muchos a muhos
+        through: models.UsuarioRol, // Usamos una tabla intermedia o tabla pivote
         foreignKey: "usuarioId",
         otherKey: "rolId"
+      });
+      Usuario.hasMany(models.RefreshToken,{
+        foreignKey: "usuario_id"
       });
     }
   }

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 let jwtExpirationTime=parseInt(process.env.JWT_EXPIRATION_TIME)|| 900;//15m
-let jwtRefreshExpirationTime = parseInt(process.env.WT_REFRESH_EXPIRATION_TIME)|| 3600;
+let jwtRefreshExpirationTime = parseInt(process.env.WT_REFRESH_EXPIRATION_TIME)|| 3600; // 1 hora
 
 const generateAccessToken = (payload)=>{
     return jwt.sign(payload, process.env.JWT_SECRET,{

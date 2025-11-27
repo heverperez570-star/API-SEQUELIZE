@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
     },
-    usuario_id: {
+    usuarioId: {
       field:"usuario_id",
       type:DataTypes.INTEGER,
       allowNull:false,
@@ -34,14 +34,22 @@ module.exports = (sequelize, DataTypes) => {
         key:"id",
       }
     },
-    refresh_token: {
-      type:DataTypes.STRING
+    refreshToken: {
+      field: "refresh_token",
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    issued_time: {
-      type:DataTypes.STRING
+    issuedTime: {
+      field: "issued_time",
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date(),
     },
-    expiration_time:{
-      type: DataTypes.STRING
+    expirationTime:{
+      field: "expiration_time",
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date(),
     },
     createdAt:{
       field:"created_at",
@@ -57,13 +65,20 @@ module.exports = (sequelize, DataTypes) => {
     },
      deletedAt:{
       field:"deleted_at",
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE,
-      defaultValue: new Date(),
+      defaultValue: null,
     },
   }, {
     sequelize,
+    timestamps: true,
+    paranoid: true,
     modelName: 'RefreshToken',
+    name:{
+      singular: "RefreshToken",
+      plural: "RefreshTokens",
+    },
+    tableName: "refresh_tokens",
   });
   return RefreshTokens;
 };
