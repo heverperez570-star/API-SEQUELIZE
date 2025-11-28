@@ -34,13 +34,13 @@ const login = async (req=request, res=response)=>{
         const refreshToken =generateRefreshToken({id:user.id, email: user.email});
 
         //almacenar el refreshToken en la base de datos
-        let expitationTime = new Date(Date.now()+1*(JWT_REFRESH_EXPIRATION_TIME*1000));
+        let expirationTime = new Date(Date.now()+1*(JWT_REFRESH_EXPIRATION_TIME*1000));
 
         await RefreshToken.create({
             refreshToken,
             usuarioId:user.id,
             issuedTime: new Date(),
-            expitationTime,
+            expirationTime,
         });
 
         return res.json({accesToken, refreshToken});
@@ -100,7 +100,7 @@ const refreshAccessToken = async (req=request, res=response)=>{
             return unauthorizedResponse(res,"Refresh Token inválido o expirado.");
         }
 
-        if(refreshTokenInDb.expitationTime < new Date()){
+        if(refreshTokenInDb.expirationTime < new Date()){
             await refreshTokenInDb.destroy();
             return unauthorizedResponse(res,"Refresh Token inválido o expirado.")
         }
@@ -118,13 +118,13 @@ const refreshAccessToken = async (req=request, res=response)=>{
             email: payload.email,
         });
 
-         let expitationTime = new Date(Date.now()+1*(JWT_REFRESH_EXPIRATION_TIME*1000));
+         let expirationTime = new Date(Date.now()+1*(JWT_REFRESH_EXPIRATION_TIME*1000));
 
         await RefreshToken.create({
             refreshToken: newRefreshToken,
             usuarioId:payload.id,
             issuedTime: new Date(),
-            expitationTime,
+            expirationTime,
         });
 
         return res.json({accesToken, RefreshToken:newRefreshToken});

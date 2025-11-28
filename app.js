@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 //registro de rutas
 
 app.use("/",routes);
+
 const port= parseInt(process.env.PORT,10);
 app.set("port",port);
 
